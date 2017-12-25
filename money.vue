@@ -1,5 +1,7 @@
 <template>
-  <div class="money el-input" :class="{'is-disabled':disabled,'el-input-group el-input-group--append':!!$slots.append}">
+  <div
+    class="money el-input"
+    :class="{'is-disabled':disabled,'el-input-group el-input-group--append':!!$slots.append}">
     <input
       ref="ipt"
       autocomplete="off"
@@ -8,19 +10,17 @@
       :disabled="disabled"
       validateevent="true"
       class="el-input__inner"
-      v-model="val"
-    >
+      v-model="val">
     <div
       v-if="!!$slots.append"
-      class="el-input-group__append"
-    >
+      class="el-input-group__append">
       <slot name="append"></slot>
     </div>
   </div>
 </template>
 <script>
   function numToMoney(v, n) {
-    const fixed = this.fixed || 0
+    const fixed = this.fixed || 2
     let r
     const ipt = this.$refs['ipt']
     if (v === '' || v === undefined) r = ''
@@ -36,14 +36,19 @@
       let st
       if (document.activeElement === ipt) {
         const val = ipt.value + ''
+        const point = val.indexOf(',')
         const l0 = val.length
         const l1 = r.length
         const fix = l1 - l0;
+        console.log('fix', fix)
         const s0 = ipt.selectionStart
-        st = s0 + fix
+        const s1 = ipt.selectionStart
+        // todo 需要判断光标各种场景的逻辑
+        if (point !== -1 && s0 > point)
+          st = s0 - fix + (fix > 0 ? s0 === s1 ? 2 : 1 : -1)
+        else st = s0 + fix
       }
       ipt.value = r
-      // todo 这里的光标位置计算或许有问题？
       if (st) ipt.setSelectionRange(st, st)
     }
     return r
@@ -68,10 +73,10 @@
     computed: {
       val: {
         get() {
-          return numToMoney.call(this, this.value, this.fixed || 0)
+          return numToMoney.call(this, this.value, this.fixed || 2)
         },
         set(v) {
-          const fixed = this.fixed || 0;
+          const fixed = this.fixed || 2;
           const val = this.value
           const fix1 = v.replace(/[^0-9,.]/g, '')
           const fix2 = v.replace(/,/g, '')
