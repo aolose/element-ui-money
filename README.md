@@ -1,5 +1,5 @@
 # element-ui-money
-基于element ui 样式的货币格式输入框
+基于element ui 样式的货币格式输入框,自动补全分隔符
 
 e.g
 
@@ -8,3 +8,5 @@ e.g
     <template slot="append">KUSD</template>
 </money>
 ```
+
+![](https://github.com/aolose/element-ui-money/blob/master/eg.png?raw=true)
