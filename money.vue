@@ -20,7 +20,7 @@
 </template>
 <script>
   function numToMoney(v, n) {
-    const fixed = this.fixed || 2
+    const fixed = this.fixed || 0
     let r
     const ipt = this.$refs['ipt']
     if (v === '' || v === undefined) r = ''
@@ -68,10 +68,10 @@
     computed: {
       val: {
         get() {
-          return numToMoney.call(this, this.value, this.fixed || 2)
+          return numToMoney.call(this, this.value, this.fixed || 0)
         },
         set(v) {
-          const fixed = this.fixed || 2;
+          const fixed = this.fixed || 0;
           const val = this.value
           const fix1 = v.replace(/[^0-9,.]/g, '')
           const fix2 = v.replace(/,/g, '')
