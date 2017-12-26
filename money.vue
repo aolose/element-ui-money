@@ -36,16 +36,22 @@
       let st
       if (document.activeElement === ipt) {
         const val = ipt.value + ''
-        const point = val.indexOf(',')
+        const point = val.indexOf('.')
         const l0 = val.length
         const l1 = r.length
         const fix = l1 - l0;
-        console.log('fix', fix)
         const s0 = ipt.selectionStart
-        const s1 = ipt.selectionStart
-        // todo 需要判断光标各种场景的逻辑
+        const s1 = ipt.selectionEnd
         if (point !== -1 && s0 > point)
-          st = s0 - fix + (fix > 0 ? s0 === s1 ? 2 : 1 : -1)
+          st = s0 - fix + (
+            fix > 0 ?
+              s0 === s1 ?
+                s0 - point === fix && fix === 1 ? //删除时候跳过小数点
+                  //todo 小数点处理
+                  0 : 1
+                : 2
+              : -1
+          )
         else st = s0 + fix
       }
       ipt.value = r
