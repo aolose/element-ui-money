@@ -1,6 +1,6 @@
 <template>
   <div
-    class="money el-input"
+    class="el-input"
     :class="{'is-disabled':disabled,'el-input-group el-input-group--append':!!$slots.append}">
     <input
       ref="ipt"
