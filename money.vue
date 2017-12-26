@@ -23,8 +23,9 @@
     const fixed = this.fixed || 2
     let r
     const ipt = this.$refs['ipt']
-    if (v === '' || v === undefined) r = ''
-    else {
+    if (v === '' || v === undefined) {
+      return v
+    } else {
       let [a, b = ''] = (v + '').split(/(?=\.)/);
       let x = a.length % 3
       r = a.substr(0, x)
@@ -36,7 +37,11 @@
       let st = -1
       if (document.activeElement === ipt) {
         const val = ipt.value + ''
-        if (val === '' || /^\.0*$/g.test(val)) return ''
+        if (val === '' || /^\.0*$/g.test(val)) {
+          this.$emit('input', '')
+          this.$emit('change', '')
+          return ''
+        }
         const point = val.indexOf('.')
         const l0 = val.length
         const l1 = r.length
@@ -47,21 +52,12 @@
           st = s0 - fix + (
             fix > 0 ?
               s0 === s1 ?
-                s0 - point === fix && fix === 1 ? //跳过小数点
-                  //todo 小数点处理
+                s0 - point === fix && fix === 1 ?
                   0 : 1
                 : 2
               : -1
           )
         else st = s0 + fix
-        console.log(
-          '\nselectionStart', s0,
-          '\nselectionEnd', s1,
-          '\npoint', point,
-          '\nval', val,
-          '\nfix', fix,
-          '\nst', st,
-        )
       }
       ipt.value = r
       if (st !== -1) ipt.setSelectionRange(st, st)
