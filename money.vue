@@ -1,6 +1,6 @@
 <template>
   <div
-    class="el-input"
+    class="money el-input"
     :class="{'is-disabled':disabled,'el-input-group el-input-group--append':!!$slots.append}">
     <input
       ref="ipt"
@@ -57,7 +57,11 @@
                 : 2
               : -1
           )
-        else st = s0 + fix
+        else {
+          if(val.length===1&&s0===s1&&fix===2){
+            st = 1
+          }else st = s0 + fix
+        }
       }
       ipt.value = r
       if (st !== -1) ipt.setSelectionRange(st, st)
