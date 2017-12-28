@@ -58,9 +58,9 @@
               : -1
           )
         else {
-          if(val.length===1&&s0===s1&&fix===2){
+          if (val.length === 1 && s0 === s1 && fix === fixed + 1) {
             st = 1
-          }else st = s0 + fix
+          } else st = s0 + fix
         }
       }
       ipt.value = r
