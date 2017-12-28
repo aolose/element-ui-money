@@ -4,12 +4,15 @@
 #### 属性：
 fix 保留位数
 
-e.g
+e.g [demo](https://aolose.github.io/money-io/)
 
 ```
-<money :fixed='2' v-model="Budget">
+<money :fixed='2' v-model="a">
     <template slot="append">KUSD</template>
 </money>
 ```
 
+
+
 ![](https://github.com/aolose/element-ui-money/blob/master/eg.png?raw=true)
+
