@@ -132,7 +132,7 @@
                     return numToMoney.call(this, this.value, this.fixed)
                 },
                 set(v) {
-                    const {fixed = 2, value, max = Number.MAX_SAFE_INTEGER, min = Number.MIN_SAFE_INTEGER} = this;
+                    const {fixed = 2, value, max = Number.MAX_SAFE_INTEGER} = this;
                     const fix1 = v.replace(/[^0-9,.]/g, '')
                     const fix2 = v.replace(/,/g, '')
                     const fix3 = parseFloat(Math.min(parseFloat(fix2), max).toFixed(fixed));
